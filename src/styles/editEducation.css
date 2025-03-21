@@ -1,10 +1,17 @@
 .education-widget {
-    width: 300px;
+    width: 100%;
     background: white;
     padding: 15px;
     border-radius: 8px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
     font-family: Arial, sans-serif;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-bottom: 20px;
 }
 
 h3 {
@@ -45,6 +52,7 @@ input {
     display: flex;
     justify-content: space-between;
     margin-top: 15px;
+    gap: 10px;
 }
 
 button {
@@ -67,4 +75,18 @@ button {
 .save {
     background: #3498db;
     color: white;
+}
+
+.input-style {
+    width: 100%;
+    padding: 8px;
+    margin: 8px 0;
+    box-sizing: border-box;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+}
+
+.buttons button {
+    flex: 1;
 }

@@ -406,3 +406,23 @@ input[type="tel"] {
         grid-template-columns: 100px 1fr;
     }
 }
+
+/* Education Section Styles */
+.education-section {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+}
+
+.education-widget.full-width {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+}
+
+.education-widget input,
+.education-widget .date-fields div {
+    width: 100%;
+}

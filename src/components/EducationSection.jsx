@@ -28,7 +28,7 @@ function EducationSection() {
         setEducation(data);
     });
     return (
-        <>
+        <div className="education-section">
             {education.map(
                 (item) =>
                     item.show && (
@@ -42,7 +42,7 @@ function EducationSection() {
                         />
                     )
             )}
-        </>
+        </div>
     );
 }
 export default EducationSection;

@@ -3,8 +3,11 @@ import Customize from "./customize";
 import eventBus from "../eventBus";
 import EducationItem from "./educationItem";
 import EditEducation from "./editEducation";
-import { useState } from "react";
+import ExperienceItem from "./experienceItem";
+import EditExperience from "./editExperience";
+import { useState, useEffect } from "react";
 import { v4 as uuidv4 } from "uuid";
+
 function Content() {
     let changeInfo = () => {
         eventBus.dispatch("changeInfo", {
@@ -14,6 +17,7 @@ function Content() {
             address: document.getElementById("address").value,
         });
     };
+
     let newEducation = {
         key: null,
         show: false,
@@ -23,6 +27,18 @@ function Content() {
         endDate: "End Date",
         location: "Location",
     };
+
+    let newExperience = {
+        key: null,
+        show: false,
+        company: "New Company",
+        position: "Position",
+        startDate: "Start Date",
+        endDate: "End Date",
+        location: "Location",
+        description: "Description",
+    };
+
     const [education, setEducation] = useState([
         {
             key: uuidv4(),
@@ -43,8 +59,39 @@ function Content() {
             location: "London, UK",
         },
     ]);
+
+    const [experience, setExperience] = useState([
+        {
+            key: uuidv4(),
+            show: true,
+            company: "Tech Corp",
+            position: "Software Engineer",
+            startDate: "01/2020",
+            endDate: "present",
+            location: "San Francisco, US",
+            description: "Developed and maintained web applications.",
+        },
+        {
+            key: uuidv4(),
+            show: false,
+            company: "Web Solutions",
+            position: "Frontend Developer",
+            startDate: "06/2018",
+            endDate: "12/2019",
+            location: "New York, US",
+            description: "Created responsive web designs.",
+        },
+    ]);
+
     const [editIndex, setEditIndex] = useState(null);
+    const [editExperienceIndex, setEditExperienceIndex] = useState(null);
     const [showEducationSection, setShowEducationSection] = useState(true);
+    const [showExperienceSection, setShowExperienceSection] = useState(true);
+
+    useEffect(() => {
+        console.log("Experience state in Content updated:", experience);
+    }, [experience]);
+
     return (
         <div className="editor-content">
             <div className="editor-section">
@@ -226,11 +273,144 @@ function Content() {
                     <h3 className="section-title">
                         <i className="fas fa-briefcase"></i> Experience
                     </h3>
-                    <i className="fas fa-chevron-down"></i>
+                    {showExperienceSection ? (
+                        <i
+                            className="fas fa-chevron-up"
+                            onClick={() => {
+                                setShowExperienceSection(
+                                    !showExperienceSection
+                                );
+                            }}
+                        ></i>
+                    ) : (
+                        <i
+                            className="fas fa-chevron-down"
+                            onClick={() => {
+                                setShowExperienceSection(
+                                    !showExperienceSection
+                                );
+                            }}
+                        ></i>
+                    )}
                 </div>
+
+                {showExperienceSection && (
+                    <div className="section-content">
+                        {editExperienceIndex != null ? (
+                            <EditExperience
+                                key={experience[editExperienceIndex].key}
+                                data={experience[editExperienceIndex]}
+                                delete={() => {
+                                    let temp = [...experience];
+                                    temp.splice(editExperienceIndex, 1);
+                                    setExperience(temp);
+                                    setEditExperienceIndex(null);
+                                    eventBus.dispatch("changeExperience", temp);
+                                }}
+                                cancel={() => {
+                                    if (
+                                        experience[editExperienceIndex]
+                                            .company == newExperience.company &&
+                                        experience[editExperienceIndex]
+                                            .position ==
+                                            newExperience.position &&
+                                        experience[editExperienceIndex]
+                                            .startDate ==
+                                            newExperience.startDate &&
+                                        experience[editExperienceIndex]
+                                            .endDate == newExperience.endDate &&
+                                        experience[editExperienceIndex]
+                                            .location ==
+                                            newExperience.location &&
+                                        experience[editExperienceIndex]
+                                            .description ==
+                                            newExperience.description
+                                    ) {
+                                        let temp = [...experience];
+                                        temp.splice(editExperienceIndex, 1);
+                                        setExperience(temp);
+                                    }
+                                    setEditExperienceIndex(null);
+                                }}
+                                save={() => {
+                                    let temp = [...experience];
+                                    temp[editExperienceIndex] = {
+                                        key: temp[editExperienceIndex].key,
+                                        show: temp[editExperienceIndex].show,
+                                        company:
+                                            document.getElementById("company")
+                                                .value,
+                                        position:
+                                            document.getElementById("position")
+                                                .value,
+                                        startDate:
+                                            document.getElementById(
+                                                "start-date"
+                                            ).value,
+                                        endDate:
+                                            document.getElementById("end-date")
+                                                .value,
+                                        location:
+                                            document.getElementById("location")
+                                                .value,
+                                        description:
+                                            document.getElementById(
+                                                "description"
+                                            ).value,
+                                    };
+                                    setExperience(temp);
+                                    setEditExperienceIndex(null);
+                                    eventBus.dispatch("changeExperience", temp);
+                                }}
+                            />
+                        ) : (
+                            <>
+                                {experience.map((item, index) => {
+                                    return (
+                                        <ExperienceItem
+                                            key={item.key}
+                                            show={item.show}
+                                            company={item.company}
+                                            iconClick={() => {
+                                                let temp = [...experience];
+                                                temp[index].show =
+                                                    !temp[index].show;
+                                                setExperience(temp);
+                                                eventBus.dispatch(
+                                                    "changeExperience",
+                                                    temp
+                                                );
+                                            }}
+                                            onClick={() => {
+                                                setEditExperienceIndex(index);
+                                            }}
+                                        />
+                                    );
+                                })}
+                                <button
+                                    className="btn btn-add"
+                                    onClick={() => {
+                                        let temp = [...experience];
+                                        newExperience.key = uuidv4();
+                                        temp.push(newExperience);
+                                        setEditExperienceIndex(temp.length - 1);
+                                        setExperience(temp);
+                                        eventBus.dispatch(
+                                            "changeExperience",
+                                            temp
+                                        );
+                                    }}
+                                >
+                                    <i className="fas fa-plus"></i> Experience
+                                </button>
+                            </>
+                        )}
+                    </div>
+                )}
             </div>
             <Customize />
         </div>
     );
 }
+
 export default Content;
