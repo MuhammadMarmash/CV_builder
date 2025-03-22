@@ -5,19 +5,10 @@ import EducationItem from "./educationItem";
 import EditEducation from "./editEducation";
 import ExperienceItem from "./experienceItem";
 import EditExperience from "./editExperience";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { v4 as uuidv4 } from "uuid";
 
 function Content(props) {
-    let changeInfo = () => {
-        eventBus.dispatch("changeInfo", {
-            name: document.getElementById("fullName").value,
-            email: document.getElementById("email").value,
-            number: document.getElementById("phone").value,
-            address: document.getElementById("address").value,
-        });
-    };
-
     let newEducation = {
         key: null,
         show: false,
@@ -40,24 +31,59 @@ function Content(props) {
     };
 
     const [education, setEducation] = useState(props.educationData);
-
     const [experience, setExperience] = useState(props.experienceData);
+    const [info, setInfo] = useState(props.infoData);
 
     const [editIndex, setEditIndex] = useState(null);
     const [editExperienceIndex, setEditExperienceIndex] = useState(null);
     const [showEducationSection, setShowEducationSection] = useState(true);
     const [showExperienceSection, setShowExperienceSection] = useState(false);
 
+    useEffect(() => {
+        if (props.educationData.length === 0 && education.length > 0) {
+            setEducation([]);
+        }
+    }, [props.educationData]);
+
+    useEffect(() => {
+        if (props.experienceData.length === 0 && experience.length > 0) {
+            setExperience([]);
+        }
+    }, [props.experienceData]);
+
+    useEffect(() => {
+        if (
+            props.infoData.name === "" &&
+            props.infoData.email === "" &&
+            props.infoData.number === "" &&
+            props.infoData.address === "" &&
+            info.name !== "" &&
+            info.email !== "" &&
+            info.number !== "" &&
+            info.address !== ""
+        ) {
+            setInfo(props.infoData);
+            eventBus.dispatch("changeInfo", props.infoData);
+        }
+    }, [props.infoData]);
+
+    let changeInfo = (e) => {
+        let temp = { ...info };
+        temp[e.target.id] = e.target.value;
+        setInfo(temp);
+        eventBus.dispatch("changeInfo", temp);
+    };
+
     return (
         <div className="editor-content">
             <div className="editor-section">
                 <h3 className="section-title">Personal Details</h3>
                 <div className="form-group">
-                    <label htmlFor="fullName">Full name</label>
+                    <label htmlFor="name">Full name</label>
                     <input
                         type="text"
-                        id="fullName"
-                        defaultValue={props.infoData.name}
+                        id="name"
+                        value={info.name}
                         onChange={changeInfo}
                     />
                 </div>
@@ -68,19 +94,19 @@ function Content(props) {
                     <input
                         type="email"
                         id="email"
-                        defaultValue={props.infoData.email}
+                        value={info.email}
                         onChange={changeInfo}
                     />
                 </div>
                 <div className="form-group">
-                    <label htmlFor="phone">
+                    <label htmlFor="number">
                         Phone number{" "}
                         <span className="recommended">recommended</span>
                     </label>
                     <input
                         type="tel"
-                        id="phone"
-                        defaultValue={props.infoData.number}
+                        id="number"
+                        value={info.number}
                         onChange={changeInfo}
                     />
                 </div>
@@ -91,7 +117,7 @@ function Content(props) {
                     <input
                         type="text"
                         id="address"
-                        defaultValue={props.infoData.address}
+                        value={info.address}
                         onChange={changeInfo}
                     />
                 </div>

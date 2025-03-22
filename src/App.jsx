@@ -65,7 +65,12 @@ function App() {
     };
 
     const handleClearResume = () => {
-        setInfoData({});
+        setInfoData({
+            name: "",
+            email: "",
+            number: "",
+            address: "",
+        });
         setEducationData([]);
         setExperienceData([]);
     };
