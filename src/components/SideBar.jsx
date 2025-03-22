@@ -18,6 +18,8 @@ function SideBar(props) {
                 onExperienceChange={props.handleExperienceChange}
                 onEducationChange={props.handleEducationChange}
                 onInfoChange={props.handleInfoChange}
+                actionButtonClicked={props.actionButtonClicked}
+                stopActionButtonClicked={props.stopActionButtonClicked}
             />
         </div>
     );

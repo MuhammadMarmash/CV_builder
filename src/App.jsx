@@ -57,11 +57,13 @@ function App() {
     const [infoData, setInfoData] = useState(infoDataExample);
     const [educationData, setEducationData] = useState(educationDataExample);
     const [experienceData, setExperienceData] = useState(experienceDataExample);
+    const [actionButtonClicked, setActionButtonClicked] = useState(false);
 
     const handleLoadExample = () => {
         setInfoData(infoDataExample);
         setEducationData(educationDataExample);
         setExperienceData(experienceDataExample);
+        setActionButtonClicked(true);
     };
 
     const handleClearResume = () => {
@@ -73,6 +75,10 @@ function App() {
         });
         setEducationData([]);
         setExperienceData([]);
+        setActionButtonClicked(true);
+    };
+    const stopActionButtonClicked = () => {
+        setActionButtonClicked(false);
     };
 
     return (
@@ -83,6 +89,8 @@ function App() {
                 experienceData={experienceData}
                 handleLoadExample={handleLoadExample}
                 handleClearResume={handleClearResume}
+                actionButtonClicked={actionButtonClicked}
+                stopActionButtonClicked={stopActionButtonClicked}
             />
             <PreviewPanel
                 infoData={infoData}

@@ -40,32 +40,16 @@ function Content(props) {
     const [showExperienceSection, setShowExperienceSection] = useState(false);
 
     useEffect(() => {
-        if (props.educationData.length === 0 && education.length > 0) {
-            setEducation([]);
-        }
-    }, [props.educationData]);
-
-    useEffect(() => {
-        if (props.experienceData.length === 0 && experience.length > 0) {
-            setExperience([]);
-        }
-    }, [props.experienceData]);
-
-    useEffect(() => {
-        if (
-            props.infoData.name === "" &&
-            props.infoData.email === "" &&
-            props.infoData.number === "" &&
-            props.infoData.address === "" &&
-            info.name !== "" &&
-            info.email !== "" &&
-            info.number !== "" &&
-            info.address !== ""
-        ) {
+        if (props.actionButtonClicked) {
             setInfo(props.infoData);
+            setEducation(props.educationData);
+            setExperience(props.experienceData);
             eventBus.dispatch("changeInfo", props.infoData);
+            eventBus.dispatch("changeEducation", props.educationData);
+            eventBus.dispatch("changeExperience", props.experienceData);
+            props.stopActionButtonClicked();
         }
-    }, [props.infoData]);
+    }, [props.actionButtonClicked]);
 
     let changeInfo = (e) => {
         let temp = { ...info };
