@@ -290,6 +290,22 @@ input[type="tel"] {
     font-family: 'Courier New', Courier, monospace;
 }
 
+/* Preview Panel Font Styles */
+.preview-panel.serif,
+.preview-panel.serif * {
+    font-family: 'Times New Roman', Times, serif;
+}
+
+.preview-panel.sans,
+.preview-panel.sans * {
+    font-family: Arial, sans-serif;
+}
+
+.preview-panel.mono,
+.preview-panel.mono * {
+    font-family: 'Courier New', Courier, monospace;
+}
+
 /* Preview Panel Styles */
 .preview-panel {
     flex: 1;
@@ -306,6 +322,16 @@ input[type="tel"] {
     max-width: 800px;
     background-color: white;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.cv-container.right {
+    display: flex;
+    flex-direction: row-reverse;
+}
+
+.cv-container.left {
+    display: flex;
+    flex-direction: row;
 }
 
 /* CV Header */

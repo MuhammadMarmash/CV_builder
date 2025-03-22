@@ -2,7 +2,6 @@ import React from "react";
 import ExperienceItemCv from "./experienceItemCv";
 import { useState, useEffect } from "react";
 import eventBus from "../eventBus";
-import { v4 as uuidv4 } from "uuid";
 
 function ExperienceSection(props) {
     const [experience, setExperience] = useState(props.experienceData);

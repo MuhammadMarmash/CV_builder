@@ -3,14 +3,16 @@ function NavigationTabs(props) {
     return (
         <div className="nav-tabs">
             <div
-                className="tab active"
+                className={props.activeTab == "content" ? "tab active" : "tab"}
                 onClick={() => props.changeActiveTab("content")}
             >
                 <i className="fas fa-file-alt"></i>
                 <span>Content</span>
             </div>
             <div
-                className="tab"
+                className={
+                    props.activeTab == "customize" ? "tab active" : "tab"
+                }
                 onClick={() => props.changeActiveTab("customize")}
             >
                 <i className="fas fa-sliders-h"></i>

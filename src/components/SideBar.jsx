@@ -10,7 +10,10 @@ function SideBar(props) {
     };
     return (
         <div className="editor-sidebar">
-            <NavigationTabs changeActiveTab={changeActiveTab} />
+            <NavigationTabs
+                changeActiveTab={changeActiveTab}
+                activeTab={activeTab}
+            />
             <ActionButtons
                 handleLoadExample={props.handleLoadExample}
                 handleClearResume={props.handleClearResume}
