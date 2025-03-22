@@ -1,12 +1,18 @@
 import "../styles/index.css";
-function NavigationTabs() {
+function NavigationTabs(props) {
     return (
         <div className="nav-tabs">
-            <div className="tab active">
+            <div
+                className="tab active"
+                onClick={() => props.changeActiveTab("content")}
+            >
                 <i className="fas fa-file-alt"></i>
                 <span>Content</span>
             </div>
-            <div className="tab">
+            <div
+                className="tab"
+                onClick={() => props.changeActiveTab("customize")}
+            >
                 <i className="fas fa-sliders-h"></i>
                 <span>Customize</span>
             </div>
