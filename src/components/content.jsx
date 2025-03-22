@@ -46,7 +46,7 @@ function Content(props) {
     const [editIndex, setEditIndex] = useState(null);
     const [editExperienceIndex, setEditExperienceIndex] = useState(null);
     const [showEducationSection, setShowEducationSection] = useState(true);
-    const [showExperienceSection, setShowExperienceSection] = useState(true);
+    const [showExperienceSection, setShowExperienceSection] = useState(false);
 
     return (
         <div className="editor-content">
