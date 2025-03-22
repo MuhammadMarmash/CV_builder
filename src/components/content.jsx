@@ -5,10 +5,10 @@ import EducationItem from "./educationItem";
 import EditEducation from "./editEducation";
 import ExperienceItem from "./experienceItem";
 import EditExperience from "./editExperience";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { v4 as uuidv4 } from "uuid";
 
-function Content() {
+function Content(props) {
     let changeInfo = () => {
         eventBus.dispatch("changeInfo", {
             name: document.getElementById("fullName").value,
@@ -39,58 +39,14 @@ function Content() {
         description: "Description",
     };
 
-    const [education, setEducation] = useState([
-        {
-            key: uuidv4(),
-            show: true,
-            school: "London City University",
-            degree: "Bachelors in Economics",
-            startDate: "08/2020",
-            endDate: "present",
-            location: "New York City, US",
-        },
-        {
-            key: uuidv4(),
-            show: false,
-            school: "Hidden University",
-            degree: "Masters in Computer Science",
-            startDate: "09/2022",
-            endDate: "present",
-            location: "London, UK",
-        },
-    ]);
+    const [education, setEducation] = useState(props.educationData);
 
-    const [experience, setExperience] = useState([
-        {
-            key: uuidv4(),
-            show: true,
-            company: "Tech Corp",
-            position: "Software Engineer",
-            startDate: "01/2020",
-            endDate: "present",
-            location: "San Francisco, US",
-            description: "Developed and maintained web applications.",
-        },
-        {
-            key: uuidv4(),
-            show: false,
-            company: "Web Solutions",
-            position: "Frontend Developer",
-            startDate: "06/2018",
-            endDate: "12/2019",
-            location: "New York, US",
-            description: "Created responsive web designs.",
-        },
-    ]);
+    const [experience, setExperience] = useState(props.experienceData);
 
     const [editIndex, setEditIndex] = useState(null);
     const [editExperienceIndex, setEditExperienceIndex] = useState(null);
     const [showEducationSection, setShowEducationSection] = useState(true);
     const [showExperienceSection, setShowExperienceSection] = useState(true);
-
-    useEffect(() => {
-        console.log("Experience state in Content updated:", experience);
-    }, [experience]);
 
     return (
         <div className="editor-content">
@@ -101,7 +57,7 @@ function Content() {
                     <input
                         type="text"
                         id="fullName"
-                        defaultValue="Josephine Meyers"
+                        defaultValue={props.infoData.name}
                         onChange={changeInfo}
                     />
                 </div>
@@ -112,7 +68,7 @@ function Content() {
                     <input
                         type="email"
                         id="email"
-                        defaultValue="josephine.meyers@mail.co.uk"
+                        defaultValue={props.infoData.email}
                         onChange={changeInfo}
                     />
                 </div>
@@ -124,7 +80,7 @@ function Content() {
                     <input
                         type="tel"
                         id="phone"
-                        defaultValue="+44 3245 5521 5521"
+                        defaultValue={props.infoData.number}
                         onChange={changeInfo}
                     />
                 </div>
@@ -135,7 +91,7 @@ function Content() {
                     <input
                         type="text"
                         id="address"
-                        defaultValue="London, UK"
+                        defaultValue={props.infoData.address}
                         onChange={changeInfo}
                     />
                 </div>

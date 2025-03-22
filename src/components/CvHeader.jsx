@@ -1,13 +1,8 @@
 import "../styles/index.css";
 import { useState } from "react";
 import eventBus from "../eventBus";
-function CvHeader() {
-    const [info, setInfo] = useState({
-        name: "Josephine Meyer",
-        email: "josephine.meyers@mail.co.uk",
-        number: "+44 3245 5521 5521",
-        address: "London, UK",
-    });
+function CvHeader(props) {
+    const [info, setInfo] = useState(props.info);
 
     eventBus.on("changeInfo", (data) =>
         setInfo({
