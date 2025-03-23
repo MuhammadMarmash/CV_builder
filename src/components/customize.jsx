@@ -4,8 +4,10 @@ import { useState } from "react";
 
 function Customize() {
     const [color, setColor] = useState("#0e3553");
-
+    const [layout, setLayout] = useState("top");
+    const [font, setFont] = useState("sans");
     const handleLayoutChange = (layout) => {
+        setLayout(layout);
         eventBus.dispatch("changeLayout", layout);
     };
 
@@ -16,6 +18,7 @@ function Customize() {
     };
 
     const handleFontChange = (font) => {
+        setFont(font);
         eventBus.dispatch("changeFont", font);
     };
 
@@ -25,21 +28,33 @@ function Customize() {
                 <h3 className="section-title">Layout</h3>
                 <div className="layout-options">
                     <div
-                        className="layout-option selected"
+                        className={
+                            layout == "top"
+                                ? "layout-option selected"
+                                : "layout-option"
+                        }
                         onClick={() => handleLayoutChange("top")}
                     >
                         <div className="layout-preview layout-top"></div>
                         <span>Top</span>
                     </div>
                     <div
-                        className="layout-option"
+                        className={
+                            layout == "left"
+                                ? "layout-option selected"
+                                : "layout-option"
+                        }
                         onClick={() => handleLayoutChange("left")}
                     >
                         <div className="layout-preview layout-left"></div>
                         <span>Left</span>
                     </div>
                     <div
-                        className="layout-option"
+                        className={
+                            layout == "right"
+                                ? "layout-option selected"
+                                : "layout-option"
+                        }
                         onClick={() => handleLayoutChange("right")}
                     >
                         <div className="layout-preview layout-right"></div>
@@ -65,21 +80,33 @@ function Customize() {
                 <h3 className="section-title">Fonts</h3>
                 <div className="font-options">
                     <div
-                        className="font-option"
+                        className={
+                            font == "serif"
+                                ? "font-option selected"
+                                : "font-option"
+                        }
                         onClick={() => handleFontChange("serif")}
                     >
                         <span className="font-preview serif">Aa</span>
                         <span className="font-name">Serif</span>
                     </div>
                     <div
-                        className="font-option selected"
+                        className={
+                            font == "sans"
+                                ? "font-option selected"
+                                : "font-option"
+                        }
                         onClick={() => handleFontChange("sans")}
                     >
                         <span className="font-preview sans">Aa</span>
                         <span className="font-name">Sans</span>
                     </div>
                     <div
-                        className="font-option"
+                        className={
+                            font == "mono"
+                                ? "font-option selected"
+                                : "font-option"
+                        }
                         onClick={() => handleFontChange("mono")}
                     >
                         <span className="font-preview mono">Aa</span>
